@@ -7,6 +7,7 @@ module.exports = {
     const indexPath = path.join(__dirname, 'index.html')
     const publicPath = express.static(path.join(__dirname, 'public'))
 
+    app.use('/semantic', express.static(path.join(__dirname, 'node_modules/semantic-ui-css')));
     app.use('/public', publicPath)
     app.get('/', function (_, res) { res.sendFile(indexPath) })
 

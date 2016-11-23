@@ -1,5 +1,6 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
@@ -17,7 +18,8 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('styles.css')
   ],
 
   module: {
@@ -27,7 +29,8 @@ module.exports = {
         include: path.join(__dirname, 'src')
       },
       { test: /\.scss?$/,
-        loader: 'style!css!sass',
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
+        exclude: /node_modules/,
         include: path.join(__dirname, 'src', 'styles') },
       { test: /\.png$/,
         loader: 'file' },
