@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import LinkIcon from '../common/LinkIcon';
 import {Grid, Icon, Dropdown, Header} from 'semantic-ui-react';
 
+import {CAMPUS_OPTIONS} from '../../helpers/constants';
+
 class HomePage extends Component {
   render() {
     return (
@@ -11,7 +13,7 @@ class HomePage extends Component {
             <Header as="h1">Welcome to Hillsong SMS app</Header>
           </Grid.Row>
           <Grid.Row>
-            <Dropdown fluid placeholder="Select your campus" selection options={[{text: 'pinas', value:'ph'}]}/>
+            <Dropdown fluid placeholder="Select your campus" selection options={CAMPUS_OPTIONS}/>
           </Grid.Row>
           <Grid.Row columns={3}>
             <Grid.Column>
