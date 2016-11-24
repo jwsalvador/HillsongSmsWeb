@@ -1,0 +1,5 @@
+export const FECTH_INBOX = "FETCH_INBOX";
+export const SELECT_INBOX = "SELECT_INBOX";
+export const FETCH_MESSAGES = 'FETCH_MESSAGES';
+export const SELECT_MESSAGE = 'SELECT_MESSAGE';
+export const SELECT_CAMPUS = 'SELECT_CAMPUS';

@@ -11,7 +11,6 @@
     "build": "babel-node tools/build.js && npm start",
     "start": "node app.js",
     "clean:build": "rimraf ./public",
-
     "deploy": "npm-run-all push:heroku clean:build",
     "add": "git add .",
     "commit": "git commit",
@@ -23,12 +22,15 @@
     "url": "git+git@github.com:jwsalvador/HillsongSmsWeb.git"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "express": "^4.13.4",
+    "mongoose": "^4.7.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
     "redux": "^3.6.0",
+    "redux-promise": "^0.5.3",
     "semantic-ui-css": "^2.2.4",
     "semantic-ui-react": "^0.61.4"
   },
