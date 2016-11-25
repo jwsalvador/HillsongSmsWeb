@@ -37,7 +37,7 @@ module.exports = {
         loader: 'babel',
         include: path.join(__dirname, 'src') },
       { test: /\.scss?$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader'),
+        loader: ExtractTextPlugin.extract('css!sass'),
         exclude: /node_modules/,
         include: path.join(__dirname, 'src', 'styles') },
       { test: /\.png$/,

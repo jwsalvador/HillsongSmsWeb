@@ -1,2 +1,2 @@
-$main:#4183c4;#main{.container{margin-top:10px}.link{&-icon{transition:all .3s ease;&:hover{font-size:9em!important}}}.padded{padding:15px 10px!important}.item{&__active{div{color:$main!important}&:before{content:'';width:2px;height:40px;background-color:$main;position:absolute;left:0}}}}
+#main .container{margin-top:10px}#main .link-icon{transition:all .3s ease}#main .link-icon:hover{font-size:9em!important}#main .padded{padding:15px 10px!important}#main .item__active div{color:#4183c4!important}#main .item__active:before{content:'';width:2px;height:40px;background-color:#4183c4;position:absolute;left:0}
 /*# sourceMappingURL=styles.css.map*/
