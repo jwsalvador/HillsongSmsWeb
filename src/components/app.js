@@ -4,7 +4,7 @@ import {Container} from 'semantic-ui-react';
 export default class App extends React.Component {
   render () {
     return (
-      <Container>
+      <Container className="padded">
         {this.props.children}
       </Container>
     );

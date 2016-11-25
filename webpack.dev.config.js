@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?reload=true',
     './src/index'
   ],
 

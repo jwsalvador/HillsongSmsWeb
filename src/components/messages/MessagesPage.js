@@ -12,14 +12,13 @@ class MessagesPage extends Component {
           Messages
         </Header>
         <Grid columns="equal">
-          <Grid.Column columns={3}>
+          <Grid.Column width={5}>
             <MessagesList />
           </Grid.Column>
           <Grid.Column>
             {this.props.children}
           </Grid.Column>
         </Grid>
-        
       </div>
     );
   }

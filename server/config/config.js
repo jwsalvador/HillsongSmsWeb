@@ -3,7 +3,8 @@ var path = require('path'),
 
 module.exports = {
   development: {
-    db: 'mongodb://localhost:27017/hillsong-db',
+    // db: 'mongodb://localhost:27017/hillsong-db',
+    db: 'mongodb://hillsonggwadmin:hillsonggw123@ds019886.mlab.com:19886/hillsong-db',
     rootPath: rootPath,
     port: process.env.PORT || 3000
   },

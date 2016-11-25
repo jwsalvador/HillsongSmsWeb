@@ -1,13 +1,39 @@
-.container {
-  margin-top: 10px;
-}
+$main: #4183C4;
 
-.link {
-  &-icon {
-    transition: all ease .3s;
+#main {
+  .container {
+    margin-top: 10px;
+  }
 
-    &:hover {
-      font-size: 9em !important;
+  .link {
+    &-icon {
+      transition: all ease .3s;
+
+      &:hover {
+        font-size: 9em !important;
+      }
+    }
+  }
+
+  .padded {
+    padding: 15px 10px !important;
+  }
+
+  .item {
+    &__active {
+      div {
+        color: $main !important;
+      }
+      
+      &::before {
+        content: '';
+        width: 2px;
+        height: 40px;
+        background-color: $main;
+        position: absolute;
+        left: 0;
+      }
     }
   }
 }
+

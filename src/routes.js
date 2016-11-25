@@ -12,7 +12,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
     <Route path="/messages" component={Messages}>
-      <Route path="/messages/detail" component={MessageDetail}/>
+      <IndexRoute component={MessageDetail}/>
     </Route>
     <Route path="/inbox" component={Inbox}/>
   </Route>

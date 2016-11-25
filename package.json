@@ -15,7 +15,7 @@
     "add": "git add .",
     "commit": "git commit",
     "push:heroku": "git push heroku master",
-    "push:git": "npm run clean:build && git push origin master"
+    "push:git": "git push origin master"
   },
   "repository": {
     "type": "git",

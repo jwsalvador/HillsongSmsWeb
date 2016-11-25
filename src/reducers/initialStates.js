@@ -1,0 +1,1 @@
+export const MESSAGES_INITIAL_STATE = { all: [], selected: null };

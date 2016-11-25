@@ -10,4 +10,21 @@ function fetchMessages() {
   }
 }
 
-export {fetchMessages};
+function fetchMessagesByCode(code) {
+  const request = axios.get(`/api/messages/${code}`);
+
+  return {
+    type: types.FETCH_MESSAGES_BY_CODE,
+    payload: request
+  }
+}
+
+function selectMessage(message) {
+
+  return {
+    type: types.SELECT_MESSAGE,
+    payload: message
+  }
+}
+
+export {fetchMessages, fetchMessagesByCode, selectMessage};

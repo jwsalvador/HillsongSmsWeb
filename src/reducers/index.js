@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
 
+import messages from './messagesReducer';
+
 const rootReducer = combineReducers({
-  home: (state = []) => {return state}
+  messages
 });
 
 export default rootReducer;
