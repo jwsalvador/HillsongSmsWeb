@@ -2,11 +2,17 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Icon, Header} from 'semantic-ui-react';
 
-const LinkIcon = ({route, name, header}) => {
+const LinkIcon = ({route, name, header, children}) => {
   return (
+    
     <Link to={route} className="link">
-      <Icon name={name} size="massive" color="blue" className="link-icon"/>
-      <Header as="h3">{header}</Header>
+      <Header as='h2' icon>
+        <Icon name={name} color="blue" className="link-icon"/>
+        {header}
+        <Header.Subheader>
+          {children}
+        </Header.Subheader>
+      </Header>
     </Link>
   );
 };

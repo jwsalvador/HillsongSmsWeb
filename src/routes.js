@@ -6,6 +6,7 @@ import Home from './components/home/HomePage';
 import Messages from './components/messages/MessagesPage';
 import MessagesList from './components/messages/MessagesList';
 import MessageDetail from './components/messages/MessageDetail';
+import MessageForm from './components/messages/MessageForm';
 import Inbox from './components/inbox/InboxPage';
 
 export default (
@@ -13,6 +14,7 @@ export default (
     <IndexRoute component={Home}/>
     <Route path="/messages" component={Messages}>
       <IndexRoute component={MessageDetail}/>
+      <Route path="/messages/form" component={MessageForm}/>
     </Route>
     <Route path="/inbox" component={Inbox}/>
   </Route>

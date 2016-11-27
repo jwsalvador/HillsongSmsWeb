@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {List} from 'semantic-ui-react';
+import {List, Button} from 'semantic-ui-react';
 
 import {fetchMessages, selectMessage} from '../../actions/messagesActions';
 
 class MessagesList extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
   componentWillMount() {
-    this.state = {selected: ''}
+
+    const {selected} = this.props;
+    
+    this.state = {selected: selected ? selected._id : ''};
 
     this.onSelectItem = this.onSelectItem.bind(this);
 
@@ -18,6 +24,8 @@ class MessagesList extends Component {
     this.setState({selected: message._id});
 
     this.props.selectMessage(message);
+    console.log(this.context.router);
+    this.context.router.push('/messages');
   }
 
   renderMessages() {
@@ -40,9 +48,10 @@ class MessagesList extends Component {
     }
     return (
       <div>
-        <List selection>
+        <List selection className="list__scroll">
           {this.renderMessages()}
         </List>
+        <Button fluid color="blue">Add new message</Button>
       </div>
     );
   };
@@ -50,7 +59,8 @@ class MessagesList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    messages: state.messages.all
+    messages: state.messages.all,
+    selected: state.messages.selected
   }
 }
 

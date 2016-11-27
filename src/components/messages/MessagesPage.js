@@ -12,10 +12,10 @@ class MessagesPage extends Component {
           Messages
         </Header>
         <Grid columns="equal">
-          <Grid.Column width={5}>
+          <Grid.Column mobile={16} tablet={5} computer={5}>
             <MessagesList />
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column only='computer'>
             {this.props.children}
           </Grid.Column>
         </Grid>

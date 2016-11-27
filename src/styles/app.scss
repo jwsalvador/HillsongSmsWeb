@@ -1,5 +1,9 @@
 $main: #4183C4;
 
+.right {
+  float: right !important;
+}
+
 #main {
   .container {
     margin-top: 10px;
@@ -7,10 +11,11 @@ $main: #4183C4;
 
   .link {
     &-icon {
+      font-size: 6em;
       transition: all ease .3s;
 
       &:hover {
-        font-size: 9em !important;
+        font-size: 7em !important;
       }
     }
   }
@@ -19,21 +24,44 @@ $main: #4183C4;
     padding: 15px 10px !important;
   }
 
-  .item {
-    &__active {
-      div {
-        color: $main !important;
+  .list {
+    
+    &__scroll {
+      max-height: 450px;
+      overflow:hidden;
+
+      &:hover {
+        overflow-y: scroll;
       }
-      
-      &::before {
-        content: '';
-        width: 2px;
-        height: 40px;
-        background-color: $main;
-        position: absolute;
-        left: 0;
+    }
+    .item {
+      &__active {
+        div {
+          color: $main !important;
+        }
+        
+        &::before {
+          content: '';
+          width: 2px;
+          height: 40px;
+          background-color: $main;
+          position: absolute;
+          left: 0;
+        }
       }
+    }
+  }
+  
+
+  .linebreak {
+    white-space: pre-line;
+  }
+
+  .header {
+    &__margin-bottom {
+      margin-bottom: 20px;
     }
   }
 }
 
+@import '../../node_modules/semantic-ui-css/semantic.min.css';

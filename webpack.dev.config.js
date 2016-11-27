@@ -30,7 +30,6 @@ module.exports = {
       },
       { test: /\.scss?$/,
         loader: ExtractTextPlugin.extract('css!sass'),
-        exclude: /node_modules/,
         include: path.join(__dirname, 'src', 'styles') },
       { test: /\.png$/,
         loader: 'file' },
