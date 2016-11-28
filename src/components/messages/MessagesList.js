@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {List, Button} from 'semantic-ui-react';
+import {Link} from 'react-router';
 
 import {fetchMessages, selectMessage} from '../../actions/messagesActions';
 
@@ -16,6 +17,7 @@ class MessagesList extends Component {
     this.state = {selected: selected ? selected._id : ''};
 
     this.onSelectItem = this.onSelectItem.bind(this);
+    this.onAddNewMessage = this.onAddNewMessage.bind(this);
 
     console.log(this.props.messages);
   }
@@ -24,8 +26,14 @@ class MessagesList extends Component {
     this.setState({selected: message._id});
 
     this.props.selectMessage(message);
-    console.log(this.context.router);
+
     this.context.router.push('/messages');
+  }
+
+  onAddNewMessage() {
+    this.setState({selected: ''});
+    this.props.selectMessage(null);
+    this.context.router.push('/messages/form');
   }
 
   renderMessages() {
@@ -51,7 +59,7 @@ class MessagesList extends Component {
         <List selection className="list__scroll">
           {this.renderMessages()}
         </List>
-        <Button fluid color="blue">Add new message</Button>
+        <Button fluid color="blue" onClick={this.onAddNewMessage}>Add new message</Button>
       </div>
     );
   };

@@ -27,4 +27,20 @@ function selectMessage(message) {
   }
 }
 
-export {fetchMessages, fetchMessagesByCode, selectMessage};
+function saveMessageSuccess(obj) {
+  return {
+    type: types.SAVE_MESSAGE,
+    payload:obj
+  };
+}
+
+function saveMessage(obj) {
+  const request = axios.post('/api/message', obj);
+
+  return (dispatch, getState) => {
+    dispatch(saveMessageSuccess(request));
+    dispatch(fetchMessagesByCode(getState().config.campus));
+  };
+}
+
+export {fetchMessages, fetchMessagesByCode, selectMessage, saveMessage};

@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Header, Button, Form, TextArea, Checkbox} from 'semantic-ui-react';
+import {Header, Button, Form, Checkbox} from 'semantic-ui-react';
+
+import {saveMessage} from '../../actions/messagesActions';
+import {InputArea, Input} from './Form';
 
 class MessageForm extends Component {
   static contextTypes = {
@@ -9,78 +13,99 @@ class MessageForm extends Component {
 
   constructor(props) {
     super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.changeValueStateHandler = this.changeValueStateHandler.bind(this);
+    this.changeDefaultStateHandler = this.changeDefaultStateHandler.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.changeKeyStateHandler = this.changeKeyStateHandler.bind(this);
+  }
 
-    const {selected} = this.props.messages;
+  componentWillMount(){
+    this.initStates(this.props.messages);
+  }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeStateHandler = this.changeStateHandler.bind(this);
+  componentWillReceiveProps(nextProps) {
+    this.initStates(nextProps.messages);
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.saveMessage(this.state);
+  }
+
+  initStates({selected, all}) {
+    
+    const checkStates = {};
+
+    if (selected) {
+      _.forEach(all, (m => {
+        const isChecked = _.indexOf(selected.child_messages, m._id) !== -1;
+        checkStates[m._id] = isChecked;
+      }));
+    }
     
     this.state = {
       key: selected ? selected.key : '',
       value: selected ? selected.value : '',
       defVal: selected ? selected.default : '',
+      checkbox: checkStates
     }
   }
 
-  componentWillMount() {
-    if (!this.props.messages.selected) {
-      this.context.router.push('/messages');
-    }
+  handleCheckboxChange(event, {value, checked}) {
+    const obj = Object.assign({}, this.state.checkbox, { [value]: checked });
+    this.setState({checkbox: obj});
   }
 
-  handleSubmit(event) {
-
-  }
-
-  renderCheckbox(list, val) {
-    return list.map(m => {
-      const isChecked = _.indexOf(val.child_messages, m._id) !== -1;
+  renderCheckbox() {
+    const {all} = this.props.messages;
+    return all.map(m => {
+      const isChecked = this.state.checkbox[m._id];
       return (
-        <Form.Checkbox checked={isChecked} key={m._id} label={m.key.toUpperCase()} name='expected' value={m._id} />
+        <Form.Checkbox 
+            onChange={this.handleCheckboxChange} 
+            checked={isChecked} 
+            key={m._id} 
+            label={m.key.toUpperCase()} 
+            name='expected' 
+            value={m._id} />
       );
     })
   }
 
-  changeStateHandler(event, {value}) {
+  changeValueStateHandler(event, {value}) {
     this.setState({value});
+  }
+
+  changeDefaultStateHandler(event, {value}) {
+    this.setState({defVal: value});
+  }
+
+  changeKeyStateHandler(event, {value}) {
+    this.setState({key: value});
   }
 
   render() {
     const {selected, all} = this.props.messages;
     const {key, value, defVal} = this.state;
 
-    if (!selected) {
-      return <div>No message selected</div>;
-    }
-
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.onSubmit}>
         <Header as="h1">
           {key.toUpperCase()}
-          <Button type="button" basic color="blue" className="right" onClick={() => this.context.router.push('/messages')}>Cancel</Button>      
+          <Button type="button" basic color="red" className="right" onClick={() => this.context.router.push('/messages')}>Cancel</Button>                
+          <Button type="submit" basic color="blue" className="right">Save</Button>
         </Header>
-        <Form.TextArea 
-            className="padded" 
-            name='value' 
-            label='Message response:' 
-            placeholder='Anything else we should know?' 
-            rows='3' 
-            value={value} 
-            onChange={this.changeStateHandler}/>
-        <Form.TextArea 
-            className="padded" 
-            name='default' 
-            label='Fallback message:' 
-            placeholder='Anything else we should know?' 
-            rows='3' 
-            value={defVal} 
-            onChange={this.changeStateHandler}/>
+        {!key && <Input name="key" value={key} onChange={this.changeKeyStateHandler} label="Key" holder="Enter new key"/>}
+        <InputArea field='value' value={value} handler={this.changeValueStateHandler}/>
+        <InputArea field='default' value={defVal} onChange={this.changeDefaultStateHandler}/>
+
         <Form.Field className="padded">
-            <label>Expected responses</label>
-            <Form.Group inline>
-              {this.renderCheckbox(all, selected)}
-            </Form.Group>
-          </Form.Field>
+          <label>Expected responses</label>
+          <Form.Group inline>
+            {this.renderCheckbox()}
+          </Form.Group>
+        </Form.Field>
       </Form>
     );
   }
@@ -89,7 +114,12 @@ class MessageForm extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     messages: state.messages,
+    config: state.config
   }
 }
 
-export default connect(mapStateToProps)(MessageForm);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({saveMessage} , dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);

@@ -7,6 +7,8 @@ module.exports = function (app, config) {
 
   app.get('/api/messages/:code', message.get);
 
+  app.post('/api/message', message.save);
+
   app.get('*', function (req, res) {
     res.sendFile(path.join(config.rootPath, 'index.html'));
   });
