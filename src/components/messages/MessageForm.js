@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Header, Button, Form, Checkbox} from 'semantic-ui-react';
 
 import {saveMessage} from '../../actions/messagesActions';
+import {CAMPUS_OPTIONS} from '../../helpers/constants';
 import {InputArea, Input} from './Form';
 
 class MessageForm extends Component {
@@ -18,6 +19,7 @@ class MessageForm extends Component {
     this.changeDefaultStateHandler = this.changeDefaultStateHandler.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.changeKeyStateHandler = this.changeKeyStateHandler.bind(this);
+    this.handleCampusChange = this.handleCampusChange.bind(this);
   }
 
   componentWillMount(){
@@ -30,13 +32,20 @@ class MessageForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.saveMessage(this.state);
+    const {selected} = this.props.messages;
+    let newObj = Object.assign({}, this.state);
+    
+    if (selected) {
+      
+    }
+
+
+    this.props.saveMessage(newObj);
   }
 
   initStates({selected, all}) {
     
     const checkStates = {};
-
     if (selected) {
       _.forEach(all, (m => {
         const isChecked = _.indexOf(selected.child_messages, m._id) !== -1;
@@ -45,10 +54,12 @@ class MessageForm extends Component {
     }
     
     this.state = {
+      _id: selected ? selected._id : null,
       key: selected ? selected.key : '',
       value: selected ? selected.value : '',
       defVal: selected ? selected.default : '',
-      checkbox: checkStates
+      checkbox: checkStates,
+      campusCodes: selected ? selected.campus_codes : []
     }
   }
 
@@ -57,7 +68,33 @@ class MessageForm extends Component {
     this.setState({checkbox: obj});
   }
 
-  renderCheckbox() {
+
+  handleCampusChange(event, {checked, value}) {
+    var codes = checked ? 
+                  _.concat(this.state.campusCodes, value) : 
+                  _.remove(this.state.campusCodes, (code) => { return code !== value});
+
+    this.setState({campusCodes: codes});
+  }
+
+  renderCampusCheckbox() {
+    const all = CAMPUS_OPTIONS;
+    return all.map(m => {
+      
+      const isChecked = _.indexOf(this.state.campusCodes, m.value) > -1;
+      return (
+        <Form.Checkbox 
+            onChange={this.handleCampusChange} 
+            checked={isChecked} 
+            key={m.value} 
+            label={m.text} 
+            name='campus' 
+            value={m.value} />
+      );
+    });
+  }
+
+  renderResponseCheckbox() {
     const {all} = this.props.messages;
     return all.map(m => {
       const isChecked = this.state.checkbox[m._id];
@@ -70,7 +107,26 @@ class MessageForm extends Component {
             name='expected' 
             value={m._id} />
       );
-    })
+    });
+  }
+
+  renderHeader() {
+    const {selected} = this.props.messages;
+    const {key, value, defVal} = this.state;
+
+    return (
+        <div>
+          <Header as="h1">
+            {selected && key.toUpperCase()}
+            <Button type="button" basic color="red" className="right" onClick={() => this.context.router.push('/messages')}>Cancel</Button>                
+            <Button type="submit" basic color="blue" className="right">Save</Button>
+
+          </Header>
+          {!selected && <Input name="key" value={key} handler={this.changeKeyStateHandler} label="Key" holder="Enter new key"/>}
+        </div>
+        
+        
+      );
   }
 
   changeValueStateHandler(event, {value}) {
@@ -81,29 +137,29 @@ class MessageForm extends Component {
     this.setState({defVal: value});
   }
 
-  changeKeyStateHandler(event, {value}) {
-    this.setState({key: value});
+  changeKeyStateHandler(event) {
+    this.setState({key: event.target.value});
   }
 
   render() {
-    const {selected, all} = this.props.messages;
     const {key, value, defVal} = this.state;
-
     return (
       <Form onSubmit={this.onSubmit}>
-        <Header as="h1">
-          {key.toUpperCase()}
-          <Button type="button" basic color="red" className="right" onClick={() => this.context.router.push('/messages')}>Cancel</Button>                
-          <Button type="submit" basic color="blue" className="right">Save</Button>
-        </Header>
-        {!key && <Input name="key" value={key} onChange={this.changeKeyStateHandler} label="Key" holder="Enter new key"/>}
+        {this.renderHeader()}
         <InputArea field='value' value={value} handler={this.changeValueStateHandler}/>
-        <InputArea field='default' value={defVal} onChange={this.changeDefaultStateHandler}/>
+        <InputArea field='default' value={defVal} handler={this.changeDefaultStateHandler}/>
 
         <Form.Field className="padded">
           <label>Expected responses</label>
           <Form.Group inline>
-            {this.renderCheckbox()}
+            {this.renderResponseCheckbox()}
+          </Form.Group>
+        </Form.Field>
+
+        <Form.Field className="padded">
+          <label>Used by campus:</label>
+          <Form.Group inline>
+            {this.renderCampusCheckbox()}
           </Form.Group>
         </Form.Field>
       </Form>

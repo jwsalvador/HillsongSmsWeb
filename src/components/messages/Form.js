@@ -26,11 +26,11 @@ const InputArea = ({field, value, handler}) => {
   );
 };
 
-const Input = ({name, label, holder}) => {
+const Input = ({name, value, label, holder, handler}) => {
   return (
     <Form.Field className="padded">
       <label>{label}</label>
-      <input name={name} placeholder={holder} />
+      <input value={value} name={name} placeholder={holder} onChange={handler}/>
     </Form.Field>
   );
 }
