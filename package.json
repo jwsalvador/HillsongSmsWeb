@@ -24,6 +24,7 @@
   "dependencies": {
     "axios": "^0.15.2",
     "body-parser": "^1.15.2",
+    "classnames": "^2.2.5",
     "express": "^4.13.4",
     "lodash": "^4.17.2",
     "mongoose": "^4.7.0",
@@ -35,7 +36,8 @@
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
     "semantic-ui-css": "^2.2.4",
-    "semantic-ui-react": "^0.61.4"
+    "semantic-ui-react": "^0.61.4",
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "babel": "^6.5.2",

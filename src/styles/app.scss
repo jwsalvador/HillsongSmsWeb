@@ -59,9 +59,45 @@ $main: #4183C4;
 
   .header {
     &__margin-bottom {
-      margin-bottom: 20px;
+      margin-bottom: 2em;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .desktop {
+      display: block;
+    }
+
+    .tab, .phone {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .tab {
+      display: block;
+    }
+
+    .desktop, .phone {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .phone {
+      display: block;
+
+      &.tab {
+        display: block;
+      }
+    }
+
+    .tab, .desktop {
+      display: none;
     }
   }
 }
 
 @import '../../node_modules/semantic-ui-css/semantic.min.css';
+
+@import '../../node_modules/toastr/build/toastr.min.css';

@@ -50,7 +50,12 @@ class HomePage extends Component {
                 View received and sent messages to users
               </LinkIcon>
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column only="tablet mobile">
+              <LinkIcon route="messages/list" name="mail outline" header="Messages">
+                Manage message response settings
+              </LinkIcon>
+            </Grid.Column>
+            <Grid.Column only="computer">
               <LinkIcon route="messages" name="mail outline" header="Messages">
                 Manage message response settings
               </LinkIcon>
@@ -63,7 +68,6 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.config);
   return {
     campus: state.config.campus
   }

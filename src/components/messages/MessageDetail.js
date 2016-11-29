@@ -2,8 +2,9 @@ import _ from 'lodash';
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import { connect } from 'react-redux';
-import { Header, Divider, Button } from 'semantic-ui-react';
+import { Header, Divider, Button, Icon } from 'semantic-ui-react';
 
+import {HSLink} from '../common/HSLink';
 import Section from './Section';
 
 class MessageDetail extends Component {
@@ -46,10 +47,11 @@ class MessageDetail extends Component {
 
     return (
       <div>
-        <Header as="h1">
+        <Header as="h2">
+          {/*<HSLink route="/messages/list" icon="arrow left"/>*/}
           {this.props.message.key.toUpperCase()}
-          <Button basic color="red" className="right">Delete</Button>
-          <Link to="messages/form"><Button basic color="blue" className="right">Edit</Button></Link>
+          <Link to="/messages/list"><Button basic color="red" className="right phone tab">Back</Button></Link>
+          <Link to="/messages/form"><Button basic color="blue" className="right">Edit</Button></Link>
         </Header>
         <Section header="Message response:" text={this.props.message.value}/>
         {this.renderValue()}

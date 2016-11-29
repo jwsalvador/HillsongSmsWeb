@@ -9,6 +9,8 @@ export default (state = init.MESSAGES_INITIAL_STATE, action) => {
       return Object.assign({}, state, {all: action.payload.data});
     case types.SELECT_MESSAGE:
       return Object.assign({}, state, {selected: action.payload});
+    case types.SAVE_MESSAGE:
+      return Object.assign({}, state, {selected: action.payload.data});
     default:
       return state;
   }

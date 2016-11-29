@@ -12,7 +12,6 @@ exports.get = function (req, res) {
 }
 
 exports.save = function (req, res) {
-  console.log(req.body);
   
   const body = req.body;
   var messages = [];
@@ -25,32 +24,28 @@ exports.save = function (req, res) {
 
   if (!body._id) {
     const message = new Messages({
-      key: body.key,
+      key: body.key.toLowerCase(),
       value: body.value,
       default: body.default,
       campus_codes: body.campusCodes,
-      child_messages: objHelper.getKeys(req.body.checkbox)
+      child_messages: body.childMessages
     });
 
     message.save(function (err, result) {
       console.log(err, result);
       res.send(result);
+      return;
     });
   } else {
     var updatedMessage = {};
     for (var key in req.body) {
-      if (key === 'campusCodes') {
-        updatedMessage['campus_codes'] = req.body[key];
-      } else if (key === 'checkbox') {
-        updatedMessage['child_messages'] = objHelper.getKeys(req.body[key]);
-      } else {
+      if (key !== '_id') {
         updatedMessage[key] = req.body[key];
       }
     }
-    // Messages.findByIdAndUpdate(body._id, updatedMessage, { new: true }, function (err, result) {
-
-    // });
-    console.log(updatedMessage);
-    res.send('success');
+    Messages.findByIdAndUpdate(body._id, updatedMessage, { new: true }, function (err, result) {
+      res.send(result);
+      return;
+    });
   }
 }

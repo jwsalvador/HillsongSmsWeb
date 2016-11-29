@@ -15,6 +15,8 @@ export default (
     <Route path="/messages" component={Messages}>
       <IndexRoute component={MessageDetail}/>
       <Route path="/messages/form" component={MessageForm}/>
+      <Route path="/messages/detail" component={MessageDetail}/>
+      <Route path="/messages/list" component={MessagesList}/>
     </Route>
     <Route path="/inbox" component={Inbox}/>
   </Route>

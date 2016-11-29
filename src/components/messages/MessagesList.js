@@ -18,8 +18,6 @@ class MessagesList extends Component {
 
     this.onSelectItem = this.onSelectItem.bind(this);
     this.onAddNewMessage = this.onAddNewMessage.bind(this);
-
-    console.log(this.props.messages);
   }
 
   onSelectItem(message) {
@@ -27,7 +25,7 @@ class MessagesList extends Component {
 
     this.props.selectMessage(message);
 
-    this.context.router.push('/messages');
+    this.context.router.push('/messages/detail');
   }
 
   onAddNewMessage() {

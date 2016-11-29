@@ -5,17 +5,18 @@ import MessagesList from './MessagesList';
 
 class MessagesPage extends Component {
   render() {
+    console.log(this.props);
     return (
       <div>
-        <Header as="h2">
+        <Header as="h1" className="header__margin-bottom">
           <Link to="/"><Icon name="arrow left"/></Link>
           Messages
         </Header>
         <Grid columns="equal">
-          <Grid.Column mobile={16} tablet={5} computer={5}>
+          <Grid.Column only="computer" width={5}>
             <MessagesList />
           </Grid.Column>
-          <Grid.Column only='computer'>
+          <Grid.Column>
             {this.props.children}
           </Grid.Column>
         </Grid>
