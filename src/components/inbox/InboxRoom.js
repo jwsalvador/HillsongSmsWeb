@@ -39,7 +39,7 @@ class InboxRoom extends Component {
       <Grid>
         <Grid.Row className="phone tab">
           <Header as="h2">
-            {this.state.key}
+            {Object.keys(this.props.selected)[0]}
             <Link style={{width: '100%'}} to="/inbox/list"><Button basic color="red" className="right">Back</Button></Link>
           </Header>
           

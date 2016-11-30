@@ -16,8 +16,16 @@ $main: #4183C4;
   .inbox-container {
     overflow: hidden;
     .inbox-list {
-      max-height: 500px;
-      overflow-y: scroll;
+
+      @media only screen and (min-width: 992px) {
+        max-height: 500px;
+        overflow-y: scroll;
+
+        &:hover {
+          overflow-y: scroll;
+        }
+      }
+      
       padding: 20px;
     }
   }
@@ -40,11 +48,14 @@ $main: #4183C4;
   .list {
     
     &__scroll {
-      max-height: 500px;
-      overflow:hidden;
 
-      &:hover {
-        overflow-y: scroll;
+      @media only screen and (min-width: 992px) {
+        max-height: 500px;
+        overflow:hidden;
+
+        &:hover {
+          overflow-y: scroll;
+        }
       }
     }
     .item {
