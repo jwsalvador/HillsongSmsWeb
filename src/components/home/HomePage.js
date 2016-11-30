@@ -45,7 +45,12 @@ class HomePage extends Component {
                 View SMS stats
               </LinkIcon>
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column only="tablet mobile">
+              <LinkIcon route="inbox/list" name="comments" header="Inbox">
+                View received and sent messages to users
+              </LinkIcon>
+            </Grid.Column>
+            <Grid.Column only="computer">
               <LinkIcon route="inbox" name="comments" header="Inbox">
                 View received and sent messages to users
               </LinkIcon>

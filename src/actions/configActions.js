@@ -16,6 +16,7 @@ const selectCampus = (code) => {
     dispatch(select(code));
     dispatch(messages.selectMessage(null));
     dispatch(inbox.fetchInbox(code));
+    dispatch(inbox.selectInbox(null));
   };
 }
 

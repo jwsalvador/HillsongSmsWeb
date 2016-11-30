@@ -9,6 +9,9 @@ import {getMessageByProp} from '../../helpers/messageHelper';
 import HSList from '../common/HSList';
 
 class InboxList extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
   constructor(props) {
     super(props);
 
