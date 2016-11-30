@@ -12,14 +12,6 @@ class InboxRoom extends Component {
     this.state = {key: ''};
   }
 
-  componentWillUpdate() {
-    const {selected} = this.props.selected;
-
-    if (selected) {
-      this.setState({key: Object.keys(selected)[0]})
-    }
-  }
-
   componentDidUpdate() {
     const elem = document.querySelector('.inbox-list');
 
@@ -29,11 +21,10 @@ class InboxRoom extends Component {
   renderInboxRoom() {
     const {selected} = this.props;
     const number = Object.keys(selected)[0];
-
-    return selected[number].map(obj => {
+    return _.uniqBy(selected[number], (e) => {return e._id }).map(obj => {
       const text = getMessageByProp(obj, this.props.messages);
       return (
-        <List.Item>
+        <List.Item key={obj._id}>
           <Header as="h6" className="item__header-top">{obj.from || 'System'}</Header>
           <Segment inverted color='grey' size='tiny'>{text}</Segment>
         </List.Item>
@@ -44,14 +35,11 @@ class InboxRoom extends Component {
   render() {
     if (!this.props.selected) return <div></div>;
 
-    const {selected} = this.props;
-    const key = Object.keys(selected)[0];
-    
     return (
       <Grid>
         <Grid.Row className="phone tab">
           <Header as="h2">
-            {key}
+            {this.state.key}
             <Link style={{width: '100%'}} to="/inbox/list"><Button basic color="red" className="right">Back</Button></Link>
           </Header>
           

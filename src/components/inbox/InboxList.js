@@ -43,7 +43,6 @@ class InboxList extends Component {
   }
 
   render() {
-    console.log(this.props.inbox)
     return (
       <List selection className="list__scroll">
         {
