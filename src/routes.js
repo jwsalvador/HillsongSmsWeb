@@ -8,6 +8,8 @@ import MessagesList from './components/messages/MessagesList';
 import MessageDetail from './components/messages/MessageDetail';
 import MessageForm from './components/messages/MessageForm';
 import Inbox from './components/inbox/InboxPage';
+import InboxRoom from './components/inbox/InboxRoom';
+import InboxList from './components/inbox/InboxList';
 
 export default (
   <Route path="/" component={App}>
@@ -18,6 +20,10 @@ export default (
       <Route path="/messages/detail" component={MessageDetail}/>
       <Route path="/messages/list" component={MessagesList}/>
     </Route>
-    <Route path="/inbox" component={Inbox}/>
+    <Route path="/inbox" component={Inbox}>
+      <IndexRoute component={InboxRoom} />
+      <Route path="/inbox/room" component={InboxRoom}/>
+      <Route path="/inbox/list" component={InboxList}/>
+    </Route>
   </Route>
 );

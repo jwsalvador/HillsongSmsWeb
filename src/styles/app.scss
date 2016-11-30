@@ -4,9 +4,22 @@ $main: #4183C4;
   float: right !important;
 }
 
+.cursive {
+  font-style: italic;
+}
+
 #main {
   .container {
     margin-top: 10px;
+  }
+
+  .inbox-container {
+    overflow: hidden;
+    .inbox-list {
+      max-height: 500px;
+      overflow-y: scroll;
+      padding: 20px;
+    }
   }
 
   .link {
@@ -27,7 +40,7 @@ $main: #4183C4;
   .list {
     
     &__scroll {
-      max-height: 450px;
+      max-height: 500px;
       overflow:hidden;
 
       &:hover {
@@ -35,6 +48,10 @@ $main: #4183C4;
       }
     }
     .item {
+      &__header-top {
+        margin-top: 2em;
+      }
+      
       &__active {
         div {
           color: $main !important;
@@ -48,6 +65,10 @@ $main: #4183C4;
           position: absolute;
           left: 0;
         }
+      }
+
+      .segment {
+        margin: 0;
       }
     }
   }

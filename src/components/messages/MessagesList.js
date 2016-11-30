@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {List, Button} from 'semantic-ui-react';
 import {Link} from 'react-router';
 
+import HSList from '../common/HSList';
 import {fetchMessages, selectMessage} from '../../actions/messagesActions';
 
 class MessagesList extends Component {
@@ -54,9 +55,7 @@ class MessagesList extends Component {
     }
     return (
       <div>
-        <List selection className="list__scroll">
-          {this.renderMessages()}
-        </List>
+        <HSList data={this.props.messages} state={this.state} itemHandler={this.onSelectItem}/>
         <Button fluid color="blue" onClick={this.onAddNewMessage}>Add new message</Button>
       </div>
     );
@@ -64,6 +63,7 @@ class MessagesList extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   return {
     messages: state.messages.all,
     selected: state.messages.selected
