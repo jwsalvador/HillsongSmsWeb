@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import dateFormat from 'dateformat';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {Segment, List, Header, Button, Grid} from 'semantic-ui-react';
@@ -23,10 +24,14 @@ class InboxRoom extends Component {
     const number = Object.keys(selected)[0];
     return _.uniqBy(selected[number], (e) => {return e._id }).map(obj => {
       const text = getMessageByProp(obj, this.props.messages);
+      const date = new Date(obj.date_received || obj.sent_at);
       return (
         <List.Item key={obj._id}>
           <Header as="h6" className="item__header-top">{obj.from || 'System'}</Header>
           <Segment inverted color='grey' size='tiny'>{text}</Segment>
+          <List.Content floated="right">
+            {dateFormat(date, "dddd, mmmm dS yyyy, h:MM:ss TT")}
+          </List.Content>
         </List.Item>
       );
     });
