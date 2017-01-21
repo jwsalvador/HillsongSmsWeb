@@ -30,6 +30,8 @@ exports.get = function (req, res) {
           temp.push(sort.byDate({ [key]: combined}));
         }
 
+        temp.reverse();
+
         res.send(temp);
       });
     }
